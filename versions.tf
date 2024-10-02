@@ -1,13 +1,19 @@
-terraform {
-  required_version = ">= 1.9.5"
+terraform{
   required_providers {
-    google = {
-      source  = "hashicorp/google"
-      version = ">= 5.37.0, < 6.0.0" 
-    }
-    google-beta = {
-      source  = "hashicorp/google-beta"
-      version = ">= 5.37.0, < 6.0.0" 
-    }
-  }
+   random= {
+ 	 source = "hashicorp/random"
+ 	 version = ">=3.0.0"
+ 	 
+   }
+   google= {
+ 	 source = "hashicorp/google"
+ 	 version = ">=3.61.0"
+ 	 
+   }
+   google-beta= {
+ 	 source = "hashicorp/google-beta"
+ 	 version = ">=3.61.0"
+ 	 
+   } 
+  } 
 }
