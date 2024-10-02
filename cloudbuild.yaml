@@ -1,0 +1,44 @@
+steps:
+
+  # Step 1: Install Terraform
+  - name: hashicorp/terraform:light
+    entrypoint: 'sh'
+    args:
+      - '-c'
+      - |
+        terraform --version
+        terraform init
+
+  # Step 2: Validate Terraform configuration
+  - name: hashicorp/terraform:light
+    entrypoint: 'sh'
+    args:
+      - '-c'
+      - |
+        terraform validate
+
+  # Step 3: Plan Terraform deployment
+  - name: hashicorp/terraform:light
+    entrypoint: 'sh'
+    args:
+      - '-c'
+      - |
+        terraform plan
+        
+  # Step 4: Apply Terraform deployment
+  - name: hashicorp/terraform:light
+    entrypoint: 'sh'
+    args:
+      - '-c'
+      - |
+        terraform apply -auto-approve
+        
+logsBucket: gs://cloudbuildbucket
+
+# Specify substitutions if necessary
+substitutions:
+  _PROJECT_ID: $PROJECT_ID
+  _GOOGLE_CREDENTIALS: $secrets.GCP_SA_KEY
+
+# Provide any additional configuration options here
+timeout: '1200s'  # 20 minutes
