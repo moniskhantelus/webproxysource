@@ -2,7 +2,7 @@ locals {
   create_url_lists = { for k, v in var.policy_rules.url_lists : v.url_list => v if v.values != null }
 }
 
-locals {
+/*locals {
   swp_tag_value = google_tags_tag_value.swp.id
 }
 
@@ -24,7 +24,7 @@ resource "google_tags_tag_value" "swp" {
   short_name  = "swp"
   description = "swp environment"
 }
-
+*/
 resource "google_network_security_gateway_security_policy" "policy" {
   provider              = google-beta
   project               = var.project_id
@@ -93,7 +93,8 @@ resource "google_network_security_gateway_security_policy_rule" "url_list_rules"
   EOT
     ),
     "destination.port == ${each.value.port}",
-    "source.matchTag('${local.swp_tag_value}')"
+   // "source.matchTag('${local.swp_tag_value}')"
+    "source.matchTag('tagValues/281484695999578')"
   ])
  
   application_matcher    = each.value.application_matcher
