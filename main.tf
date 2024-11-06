@@ -13,7 +13,8 @@ resource "google_tags_tag_key" "swp_tag_key" {
   description = "Allow internet access"
   purpose     = "GCE_FIREWALL"
   purpose_data = {
-  network = "${var.project_id}/${var.network}"
+ // network = "${var.project_id}/${var.network}"
+    network = "cso-mss-np-8a89c8/cso-mss-network-np"
 }
   }
 
