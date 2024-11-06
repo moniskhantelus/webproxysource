@@ -2,15 +2,15 @@ locals {
   create_url_lists = { for k, v in var.policy_rules.url_lists : v.url_list => v if v.values != null }
 }
 
-/*locals {
+locals {
   swp_tag_value = google_tags_tag_value.swp.id
 }
 
 # Create a tag key
 resource "google_tags_tag_key" "swp_tag_key" {
   parent      = "projects/${var.project_id}"
-  short_name  = "swp_key"
-  description = "Firewall tag key"
+  short_name  = "internet"
+  description = "Allow internet access"
   purpose     = "GCE_FIREWALL"
   purpose_data = {
   network = "${var.project_id}/${var.network}"
@@ -21,10 +21,10 @@ resource "google_tags_tag_key" "swp_tag_key" {
 # Create tag values associated with the key
 resource "google_tags_tag_value" "swp" {
   parent      = google_tags_tag_key.swp_tag_key.id
-  short_name  = "swp"
-  description = "swp environment"
+  short_name  = "internet-access"
+  description = "Allow internet access"
 }
-*/
+
 resource "google_network_security_gateway_security_policy" "policy" {
   provider              = google-beta
   project               = var.project_id
@@ -93,8 +93,8 @@ resource "google_network_security_gateway_security_policy_rule" "url_list_rules"
   EOT
     ),
     "destination.port == ${each.value.port}",
-   // "source.matchTag('${local.swp_tag_value}')"
-    "source.matchTag('tagValues/281484695999578')"
+    "source.matchTag('${local.swp_tag_value}')"
+   // "source.matchTag('tagValues/281484695999578')"
   ])
  
   application_matcher    = each.value.application_matcher
