@@ -19,6 +19,11 @@ variable "delete_swg_autogen_router_on_destroy" {
   default     = true
 }
 
+variable "tag_network" {
+  description = "Name of the Secure Web Proxy resource."
+  type        = string
+}
+
 variable "description" {
   description = "Optional description for the created resources."
   type        = string
