@@ -6,6 +6,14 @@ locals {
   swp_tag_value = google_tags_tag_value.swp.id
 }
 
+# Creating NAT IP's
+resource "google_compute_address" "nat_ip" {
+  project = var.project_id
+  region  = var.region
+  count   = 4
+  name    = "swp-public-mss-${count.index}"
+}
+
 # Create a tag key
 resource "google_tags_tag_key" "swp_tag_key" {
   parent      = "projects/${var.project_id}"
