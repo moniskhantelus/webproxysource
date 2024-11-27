@@ -1,4 +1,4 @@
-  
+
 variable "addresses" {
   description = "One or more IP addresses to be used for Secure Web Proxy."
   type        = list(string)
@@ -45,7 +45,11 @@ variable "network" {
   description = "Name of the network the Secure Web Proxy is deployed into."
   type        = string
 }
-
+# variable "swpnetwork" {
+#   description = "Name of the network the Secure Web Proxy is deployed into."
+#   type        = string
+#   default = "able-door-308401/gidc-svc-network"
+# }
 
 variable "policy_rules" {
   description = "List of policy rule definitions, default to allow action. Available keys: secure_tags, url_lists, custom. URL lists that only have values set will be created."
@@ -72,17 +76,6 @@ variable "policy_rules" {
       tls_inspection_enabled = optional(bool, false)
       description            = optional(string)
       port                   = number
-    })))
-    rule_lists = optional(map(object({
-      rule_list              = string
-      values                 = optional(list(string))
-      session_matcher        = optional(string)
-      application_matcher    = optional(string)
-      priority               = number
-      action                 = optional(string, "ALLOW")
-      enabled                = optional(bool, true)
-      tls_inspection_enabled = optional(bool, false)
-      description            = optional(string)
     })))
     custom = optional(map(object({
       session_matcher        = optional(string)
@@ -147,4 +140,3 @@ variable "tls_inspection_config" {
   })
   default = null
 }
-
